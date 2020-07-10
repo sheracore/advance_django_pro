@@ -1,2 +1,2 @@
 # advance_django_pro
-advance django project with TDD, Tracis CI and flake8
+advance django project with TDD, Travis CI and flake8
