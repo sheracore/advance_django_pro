@@ -1,2 +1,2 @@
 # advance_django_pro
-advance django project with docker and TDD 
+advance django project with TDD and Tracis CI
