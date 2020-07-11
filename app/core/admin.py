@@ -5,6 +5,9 @@ from django.utils.translation import gettext as _
 from core import models
 
 
+""" This class creted for updating admin for support custom user model"""
+
+
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
     list_display = ['email', 'name']
@@ -20,7 +23,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
          (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1','password2')
+            'fields': ('email', 'password1', 'password2')
          }),
         )
 
