@@ -18,7 +18,7 @@ class CommandTests(TestCase):
 	@patch('time.sleep', return_value=True)
 	def test_wait_for_db(self, ts):
 		"""Test waiting for db"""
-		with patch('django.db.utils.ConnectionHandler.__getItem__') as gi:
+		with patch('django.db.utils.ConnectionHandler.__getitem__') as gi:
 			# This means that the five time you call this getitem 
 			# And its going to raise the OperationalError
 			# 5 time call this and the last time(6th) retuen True
