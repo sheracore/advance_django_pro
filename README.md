@@ -7,4 +7,4 @@ advance django project with TDD, Travis CI and flake8
 * It will automatically generate validators for the serializer, such as unique_together validators.
 * It includes simple default implementations of .create() and .update().
 #### PUT VS PATCH
-* In put your method, request should contain entire fields but in PATHCH you can send just one changed fied like jast username or just name
+* In put your method, request should contain entire fields but in PATHCH you can provide just one changed fied like jast username or just name
