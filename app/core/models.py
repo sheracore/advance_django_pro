@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                        PermissionsMixin
+# This is recommended way to retrieve defferent setting from the django setting file              
+from django.conf import settings
 
 
 class UserManager(BaseUserManager):
@@ -35,3 +37,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+class Tag(models.Model):
+    """Tag to be used for recipe"""
+    name = models.CharField(max_length=255)
+    # Now we want to connect to User model so we can connect by foreign key but 
+    # in there the best practice are using settings to retrieve our auth user model
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        )
+
+    def __str__(self):
+        return self.name

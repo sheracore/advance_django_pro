@@ -18,7 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_date):
         """ create a new user with encrypted password and retuen it"""
         return get_user_model().objects.create_user(**validated_date)
-
+    
+    # Purpose of this overwriting this function is that inserted password using set_password 
     def update(self, instance, validated_date):
         """Update a user, setting the password correctly and return it"""
         # pop is like get but needs default always(e.g None)
