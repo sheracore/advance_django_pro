@@ -6,6 +6,7 @@ advance django project with TDD, Travis CI and flake8
 ### Using mixins
 #### One of the big wins of using class-based views is that it allows us to easily compose reusable bits of behaviour.
 #### The create/retrieve/update/delete operations that we've been using so far are going to be pretty similar for any model-backed API views we create. Those bits of common behaviour are implemented in REST framework's mixin classes.
+* So you can use mixin to customize CRUD methods.
 ```
 class SnippetList(mixins.ListModelMixin,
                   mixins.CreateModelMixin,
