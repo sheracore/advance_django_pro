@@ -51,3 +51,17 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Ingredient(models.Model):
+    """Ingredient to be used for recipe"""
+    name = models.CharField(max_length=255)
+    # Now we want to connect to User model so we can connect by foreign key but 
+    # in there the best practice are using settings to retrieve our auth user model
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        )
+
+    def __str__(self):
+        return self.name
