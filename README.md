@@ -26,6 +26,19 @@ class SnippetList(mixins.ListModelMixin,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 ```
+### ModelViewSet
+#### The ModelViewSet class inherits from GenericAPIView and includes implementations for various actions, by mixing in the behavior of the various mixin classes.
+* The actions provided by the ModelViewSet class are .list(), .retrieve(), .create(), .update(), .partial_update(), and .destroy().
+* Because ModelViewSet extends GenericAPIView, you'll normally need to provide at least the queryset and serializer_class attributes. For example:
+```
+class AccountViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing accounts.
+    """
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
+    permission_classes = [IsAccountAdminOrReadOnly]
+```
 
 ### ModelSeializer VS serializer
 #### The ModelSerializer class is the same as a regular Serializer class, except that:
