@@ -39,6 +39,19 @@ class AccountViewSet(viewsets.ModelViewSet):
     serializer_class = AccountSerializer
     permission_classes = [IsAccountAdminOrReadOnly]
 ```
+#### Note that you can use any of the standard attributes or method overrides provided by GenericAPIView. For example, to use a ViewSet that dynamically determines the queryset it should operate on, you might do something like this:
+```
+class AccountViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing the accounts
+    associated with the user.
+    """
+    serializer_class = AccountSerializer
+    permission_classes = [IsAccountAdminOrReadOnly]
+
+    def get_queryset(self):
+        return self.request.user.accounts.all()
+```
 
 ### ModelSeializer VS serializer
 #### The ModelSerializer class is the same as a regular Serializer class, except that:
