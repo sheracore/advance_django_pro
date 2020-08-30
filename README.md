@@ -11,6 +11,12 @@ advance django project with TDD, Travis CI and flake8
 class SnippetList(mixins.ListModelMixin,
                   mixins.CreateModelMixin,
                   generics.GenericAPIView):
+    """
+    A viewset that provides `retrieve`, `create`, and `list` actions.
+
+    To use it, override the class and set the `.queryset` and
+    `.serializer_class` attributes.
+    """
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
 
