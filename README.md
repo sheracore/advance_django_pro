@@ -1,5 +1,6 @@
 # advance_django_pro
-advance django project with TDD, Travis CI and flake8
+advance django project with TDD, Travis CI and flake8.
+* This project have four apps contain app(core app), core, user, recipe that core has basic admin and all model and each recipe and user have its serializers, views, urls and tests.
 
 #### In this project all admin, models, code handled in core app
 
