@@ -82,3 +82,66 @@ class AccountViewSet(viewsets.ModelViewSet):
 * ManyToManyField.symmetrical¶
 
 *    Only used in the definition of ManyToManyFields on self. Consider the following model:
+```
+from django.db import models
+
+class Person(models.Model):
+    friends = models.ManyToManyField("self")
+```
+#### Some Example
+```
+from django.db import models
+
+class Person(models.Model):
+    name = models.CharField(max_length=50)
+
+class Group(models.Model):
+    name = models.CharField(max_length=128)
+    members = models.ManyToManyField(
+        Person,
+        through='Membership',
+        through_fields=('group', 'person'),
+    )
+
+class Membership(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    inviter = models.ForeignKey(
+        Person,
+        on_delete=models.CASCADE,
+        related_name="membership_invites",
+    )
+    invite_reason = models.CharField(max_length=64)
+```
+    Membership has two foreign keys to Person (person and inviter), which makes the relationship ambiguous and Django can’t know which one to use. In this case, you must explicitly specify which foreign keys Django should use using through_fields, as in the example above.
+
+    through_fields accepts a 2-tuple ('field1', 'field2'), where field1 is the name of the foreign key to the model the ManyToManyField is defined on (group in this case), and field2 the name of the foreign key to the target model (person in this case).
+
+    When you have more than one foreign key on an intermediary model to any (or even both) of the models participating in a many-to-many relationship, you must specify through_fields. This also applies to recursive relationships when an intermediary model is used and there are more than two foreign keys to the model, or you want to explicitly specify which two Django should use.
+
+    Recursive relationships using an intermediary model are always defined as non-symmetrical – that is, with symmetrical=False – therefore, there is the concept of a “source” and a “target”. In that case 'field1' will be treated as the “source” of the relationship and 'field2' as the “target”.
+
+ManyToManyField.db_table¶
+
+    The name of the table to create for storing the many-to-many data. If this is not provided, Django will assume a default name based upon the names of: the table for the model defining the relationship and the name of the field itself.
+
+ManyToManyField.db_constraint¶
+
+    Controls whether or not constraints should be created in the database for the foreign keys in the intermediary table. The default is True, and that’s almost certainly what you want; setting this to False can be very bad for data integrity. That said, here are some scenarios where you might want to do this:
+
+        You have legacy data that is not valid.
+        You’re sharding your database.
+
+    It is an error to pass both db_constraint and through.
+
+ManyToManyField.swappable¶
+
+    Controls the migration framework’s reaction if this ManyToManyField is pointing at a swappable model. If it is True - the default - then if the ManyToManyField is pointing at a model which matches the current value of settings.AUTH_USER_MODEL (or another swappable model setting) the relationship will be stored in the migration using a reference to the setting, not to the model directly.
+
+    You only want to override this to be False if you are sure your model should always point towards the swapped-in model - for example, if it is a profile model designed specifically for your custom user model.
+
+    If in doubt, leave it to its default of True.
+
+ManyToManyField does not support validators.
+
+null has no effect since there is no way to require a relationship at the database level.
