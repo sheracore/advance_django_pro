@@ -61,3 +61,24 @@ class AccountViewSet(viewsets.ModelViewSet):
 * It includes simple default implementations of .create() and .update().
 #### PUT VS PATCH
 * In put your method, request should contain entire fields but in PATHCH you can provide just one changed fied like jast username or just name
+
+### ManyToMany relatoins
+
+
+* ManyToManyField.related_name¶
+
+    Same as ForeignKey.related_name.
+
+* ManyToManyField.related_query_name¶
+
+    Same as ForeignKey.related_query_name.
+
+* ManyToManyField.limit_choices_to¶
+
+    Same as ForeignKey.limit_choices_to.
+  
+* limit_choices_to has no effect when used on a ManyToManyField with a custom intermediate table specified using the through parameter.
+
+* ManyToManyField.symmetrical¶
+
+*    Only used in the definition of ManyToManyFields on self. Consider the following model:
