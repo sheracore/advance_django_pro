@@ -65,3 +65,23 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Recipe(models.Model):
+    """Recipe object"""
+    # Each user can have many recipe but each recipe assign to one user
+    #
+    #
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+        )
+    title = models.CharField(max_length=255)
+    time_minutes = models.IntegerField()
+    price = models.DeciminalField(max_digits=5, decimal_places=2)
+    link - models.CharField(max_length=255, blank=True)
+    Ingredient = mmodels.ManyToManyField('Ingredient')
+    tag = models.ManytoManyField('Tag')
+
+    def __str__(self):
+        return self.title
