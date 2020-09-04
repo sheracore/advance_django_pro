@@ -78,9 +78,9 @@ class Recipe(models.Model):
         )
     title = models.CharField(max_length=255)
     time_minutes = models.IntegerField()
-    price = models.DeciminalField(max_digits=5, decimal_places=2)
-    link - models.CharField(max_length=255, blank=True)
-    Ingredient = mmodels.ManyToManyField('Ingredient')
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    link = models.CharField(max_length=255, blank=True)
+    Ingredient = models.ManyToManyField('Ingredient')
     tag = models.ManytoManyField('Tag')
 
     def __str__(self):
