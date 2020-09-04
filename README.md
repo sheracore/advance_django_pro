@@ -197,3 +197,6 @@ Traceback (most recent call last):
 ...
 ValueError: save() prohibited to prevent data loss due to unsaved related object 'reporter'.
 ```
+#### Article objects have access to their related Reporter objects:
+```
+
