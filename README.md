@@ -27,7 +27,7 @@ class SnippetList(mixins.ListModelMixin,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 ```
-### ModelViewSet
+#### ModelViewSet
 #### The ModelViewSet class inherits from GenericAPIView and includes implementations for various actions, by mixing in the behavior of the various mixin classes.
 * The actions provided by the ModelViewSet class are .list(), .retrieve(), .create(), .update(), .partial_update(), and .destroy().
 * Because ModelViewSet extends GenericAPIView, you'll normally need to provide at least the queryset and serializer_class attributes. For example:
@@ -125,7 +125,7 @@ ManyToManyField.db_table¶
 
     The name of the table to create for storing the many-to-many data. If this is not provided, Django will assume a default name based upon the names of: the table for the model defining the relationship and the name of the field itself.
 
-ManyToManyField.db_constraint¶
+ManyToManyField.db_constraint
 
     Controls whether or not constraints should be created in the database for the foreign keys in the intermediary table. The default is True, and that’s almost certainly what you want; setting this to False can be very bad for data integrity. That said, here are some scenarios where you might want to do this:
 
@@ -134,7 +134,7 @@ ManyToManyField.db_constraint¶
 
     It is an error to pass both db_constraint and through.
 
-ManyToManyField.swappable¶
+ManyToManyField.swappable
 
     Controls the migration framework’s reaction if this ManyToManyField is pointing at a swappable model. If it is True - the default - then if the ManyToManyField is pointing at a model which matches the current value of settings.AUTH_USER_MODEL (or another swappable model setting) the relationship will be stored in the migration using a reference to the setting, not to the model directly.
 
