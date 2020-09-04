@@ -146,6 +146,7 @@ ManyToManyField does not support validators.
 
 null has no effect since there is no way to require a relationship at the database level.
 
+
 #### An other example for ManyToMany
 ```
 from django.db import models
@@ -169,6 +170,7 @@ class Article(models.Model):
     class Meta:
         ordering = ['headline']
 ```
+
 #### So we have:
 ```
 >>> r = Reporter(first_name='John', last_name='Smith', email='john@example.com')
@@ -177,6 +179,7 @@ class Article(models.Model):
 >>> r2 = Reporter(first_name='Paul', last_name='Jones', email='paul@example.com')
 >>> r2.save()
 ```
+
 #### Create an Article:
 ```
 >>> from datetime import date
@@ -189,6 +192,7 @@ class Article(models.Model):
 >>> a.reporter
 <Reporter: John Smith>
 ```
+
 #### Note that you must save an object before it can be assigned to a foreign key relationship. For example, creating an Article with unsaved Reporter raises ValueError:
 ```
 >>> r3 = Reporter(first_name='John', last_name='Smith', email='john@example.com')
