@@ -65,15 +65,15 @@ class AccountViewSet(viewsets.ModelViewSet):
 ### ManyToMany relatoins
 
 #### ManyToManyField accepts an extra set of arguments – all optional – that control how the relationship functions
-* ManyToManyField.related_name¶
+* ManyToManyField.related_name
 
     Same as ForeignKey.related_name.
 
-* ManyToManyField.related_query_name¶
+* ManyToManyField.related_query_name
 
     Same as ForeignKey.related_query_name.
 
-* ManyToManyField.limit_choices_to¶
+* ManyToManyField.limit_choices_to
 
     Same as ForeignKey.limit_choices_to.
   
