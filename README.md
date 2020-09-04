@@ -145,3 +145,55 @@ ManyToManyField.swappable¶
 ManyToManyField does not support validators.
 
 null has no effect since there is no way to require a relationship at the database level.
+
+#### An other example for ManyToMany
+```
+from django.db import models
+
+class Reporter(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField()
+
+    def __str__(self):
+        return "%s %s" % (self.first_name, self.last_name)
+
+class Article(models.Model):
+    headline = models.CharField(max_length=100)
+    pub_date = models.DateField()
+    reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.headline
+
+    class Meta:
+        ordering = ['headline']
+```
+#### So we have:
+```
+>>> r = Reporter(first_name='John', last_name='Smith', email='john@example.com')
+>>> r.save()
+
+>>> r2 = Reporter(first_name='Paul', last_name='Jones', email='paul@example.com')
+>>> r2.save()
+```
+#### Create an Article:
+```
+>>> from datetime import date
+>>> a = Article(id=None, headline="This is a test", pub_date=date(2005, 7, 27), reporter=r)
+>>> a.save()
+
+>>> a.reporter.id
+1
+
+>>> a.reporter
+<Reporter: John Smith>
+```
+#### Note that you must save an object before it can be assigned to a foreign key relationship. For example, creating an Article with unsaved Reporter raises ValueError:
+```
+>>> r3 = Reporter(first_name='John', last_name='Smith', email='john@example.com')
+>>> Article.objects.create(headline="This is a test", pub_date=date(2005, 7, 27), reporter=r3)
+Traceback (most recent call last):
+...
+ValueError: save() prohibited to prevent data loss due to unsaved related object 'reporter'.
+```
