@@ -70,8 +70,6 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     """Recipe object"""
     # Each user can have many recipe but each recipe assign to one user
-    #
-    #
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -81,7 +79,7 @@ class Recipe(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     link = models.CharField(max_length=255, blank=True)
     Ingredient = models.ManyToManyField('Ingredient')
-    tag = models.ManytoManyField('Tag')
+    tag = models.ManyToManyField('Tag')
 
     def __str__(self):
         return self.title
