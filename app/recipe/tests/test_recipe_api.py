@@ -10,10 +10,9 @@ from core.models import Recipe, Tag, Ingredient
 from recipe.serializers import RecipeSerializer, RecipeDetailSerializer
 
 # /api/recipe/recipes
-# /api/recipe/recipes/1/
 RECIPE_URL = reverse('recipe:recipe-list')
 
-
+# /api/recipe/recipes/1/
 def detail_url(recipe_id):
 	"""Return recipe detail URL"""
 	return reverse('recipe:recipe-detail', args=[recipe_id])
@@ -26,6 +25,7 @@ def sample_ingredient(user, name='Cinnamon'):
 	"""Create and return a sample ingredient"""
 	return Ingredient.objects.create(user=user, name=name)
 
+# We can use **params for more than one field passing
 def sample_recipe(user, **params):
 	"""Create and return a sample recipe"""
 	defualts = {
@@ -33,6 +33,7 @@ def sample_recipe(user, **params):
 		'time_minutes' : 10,
 		'price': 5.00
 	}
+	# Using update function, ditionary updated
 	defualts.update(params)
 
 	return Recipe.objects.create(user=user, **defualts)
@@ -93,6 +94,7 @@ class PriveteRecipeApiTest(TestCase):
 	def test_view_recipe_detail(self):
 		"""Test viewing a recipe detail"""
 		recipe = sample_recipe(user=self.user)
+		# Django using add in ManyToMany Funs
 		recipe.tags.add(sample_tag(user=self.user))
 		recipe.ingredients.add(sample_ingredient(user=self.user))
 

@@ -20,6 +20,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
 	"""Serializser a recipe"""
+	# PrimaryKeyRelatedField used to just to show id of related tables
 	ingredients = serializers.PrimaryKeyRelatedField(
 		many=True,
 		queryset=Ingredient.objects.all()
@@ -38,6 +39,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 		read_only_fields = ('id',)
 
 class RecipeDetailSerializer(RecipeSerializer):
-	"""Serializer a recipe detail"""
+	"""Serialize a recipe detail"""
+	# many=True used to show detail of related serializers
 	ingredients = IngredientSerializer(many=True, read_only=True)
 	tags = TagSerializer(many=True, read_only=True)
