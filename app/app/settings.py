@@ -133,6 +133,6 @@ MEDIA_URL = '/media/'
 
 # It means were to save media files
 MEDIA_ROOT = '/vol/web/media/'
-STATIC_ROOT = '/vol/web/static'
+STATIC_ROOT = '/vol/web/static/'
 
 AUTH_USER_MODEL = 'core.User'

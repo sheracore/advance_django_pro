@@ -49,9 +49,27 @@ class RecipeViewSet(viewsets.ModelViewSet):
 	authentication_classes = (TokenAuthentication,)
 	permission_classes = (IsAuthenticated,)
 
+	def _params_to_ints(self, qs):
+		"""Convet a list of string IDs to a list of integers"""
+		# our_string = "1,2,3" ---> [1,2,3]
+		return [int(str_id) for str_id in qs.split(',')]
+
 	def get_queryset(self):
 		"""Retrieve the recipes for the authenticated user"""
-		return  self.queryset.filter(user=self.request.user)
+		# If tags not exist .get function returns None
+		# query_params is a type of passing data from url to the back end
+		tags = self.request.query_params.get('tags')
+		ingredients = self.request.query_params.get('ingredients')
+		queryset = self.queryset
+		if tags:
+			tag_ids = self._params_to_ints(tags)
+			# tags__id__in is django syntax to filtering on foreign key objebts
+			queryset = queryset.filter(tags__id__in=tag_ids)
+		if ingredients:
+			ingredients_ids = self._params_to_ints(ingredients)
+			queryset = queryset.filter(ingredients__id__in=ingredients_ids)
+		# return  self.queryset.filter(user=self.request.user)
+		return  queryset.filter(user=self.request.user)
     
     # override serializer
 	def get_serializer_class(self):
@@ -70,7 +88,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
     # Derail meanse POST url contain id ---> recipe/id/upload-image
 	@action(methods=['POST'], detail=True, url_path='upload-image')
 	def upload_image(self, request, pk=None):
-		print("**************")
 		"""Upload an image to a recipe"""
 		# get_object is based on id
 		recipe = self.get_object()
