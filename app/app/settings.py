@@ -125,6 +125,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# 127.0.0.1:8000/static/
+# 127.0.0.1:8000/media/
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+
+# It means were to save media files
+MEDIA_ROOT = '/vol/web/media/'
+STATIC_ROOT = '/vol/web/static'
 
 AUTH_USER_MODEL = 'core.User'
