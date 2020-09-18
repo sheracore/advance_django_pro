@@ -19,7 +19,12 @@ class BaseRecipeAttrViewSet(viewsets.GenericViewSet,
 	def get_queryset(self):
 		"""Return objects for the current authenticated user"""
 		# This self.request.user filters the user that currently authenticated
-		return self.queryset.filter(user=self.request.user).order_by('-name')
+		assigned_only = bool(self.request.query_params.get('assigned_only'))
+		queryset = self.queryset
+		if assigned_only:
+			# reason of accessing to recipe in tag/ingredient queryset is that relation shipis is ManyToMany 
+			queryset = queryset.filter(recipe__isnull=False)
+		return queryset.filter(user=self.request.user).order_by('-name')
 
 	def perform_create(self, serializer):
 		"""Create a new object"""
@@ -70,8 +75,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
 			queryset = queryset.filter(ingredients__id__in=ingredients_ids)
 		# return  self.queryset.filter(user=self.request.user)
 		return  queryset.filter(user=self.request.user)
-    
-    # override serializer
+	
+	# override serializer
 	def get_serializer_class(self):
 		"""Return appropriate serializer class"""
 		if self.action == 'retrieve':
@@ -84,8 +89,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
 	def perform_create(self, serializer):
 		"""Create a new recipe"""
 		serializer.save(user=self.request.user)
-    
-    # Derail meanse POST url contain id ---> recipe/id/upload-image
+	
+	# Derail meanse POST url contain id ---> recipe/id/upload-image
 	@action(methods=['POST'], detail=True, url_path='upload-image')
 	def upload_image(self, request, pk=None):
 		"""Upload an image to a recipe"""
