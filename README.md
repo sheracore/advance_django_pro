@@ -204,4 +204,5 @@ ValueError: save() prohibited to prevent data loss due to unsaved related object
 ```
 #### Article objects have access to their related Reporter objects:
 ```
-
+```
+#### We can dockerize this project by python-alpine image and docker compose :)
