@@ -16,6 +16,6 @@ WORKDIR /app
 COPY ./app /app
 
 # -D means in running application only
-# If you dont do this the app is running just on root user that is not recommende
+# If you don't do this, the app just on root user can be run that is not recommended
 RUN adduser -D user
 USER user
