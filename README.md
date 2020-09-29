@@ -4,6 +4,14 @@ advance django project with TDD, Travis CI and flake8.
 
 #### In this project all admin, models, code handled in core app
 
+### How to run API
+#### This api is created by docker and commands run by docekr-compose
+#### Using python:3.7-alpine custom Dockfile created
+```
+sudo docker build . -t [name]:[version]
+```
+
+
 ### Using mixins
 #### One of the big wins of using class-based views is that it allows us to easily compose reusable bits of behaviour.
 
