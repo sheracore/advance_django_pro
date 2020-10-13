@@ -11,6 +11,34 @@ advance django project with TDD, Travis CI and flake8.
 sudo docker build . -t [name]:[version]
 ```
 
+### Defferent between queryset def get_queryset override method:
+```
+In your example, overriding queryset and get_queryset have the same effect. I would slightly favour setting queryset because it's less verbose.
+
+When you set queryset, the queryset is created only once, when you start your server. On the other hand, the get_queryset method is called for every request.
+
+That means that get_queryset is useful if you want to adjust the query dynamically. For example, you could return objects that belong to the current user:
+
+class IndexView(generic.ListView):
+    def get_queryset(self):
+        """Returns Polls that belong to the current user"""
+        return Poll.active.filter(user=self.request.user).order_by('-pub_date')[:5]
+
+Another example where get_queryset is useful is when you want to filter based on a callable, for example, return today's polls:
+
+class IndexView(generic.ListView):
+    def get_queryset(self):
+        """Returns Polls that were created today"""
+        return Poll.active.filter(pub_date=date.today())
+
+If you tried to do the same thing by setting queryset, then date.today() would only be called once, when the view was loaded, and the view would display incorrect results after a while.
+
+class IndexView(generic.ListView):
+    # don't do this!
+    queryset = Poll.active.filter(pub_date=date.today())
+
+```
+
 
 ### Using mixins
 #### One of the big wins of using class-based views is that it allows us to easily compose reusable bits of behaviour.
