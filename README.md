@@ -14,9 +14,7 @@ sudo docker build . -t [name]:[version]
 ### Defferent between queryset def get_queryset override method:
 
 #### In your example, overriding queryset and get_queryset have the same effect. I would slightly favour setting queryset because it's less verbose.
-
 #### When you set queryset, the queryset is created only once, when you start your server. On the other hand, the get_queryset method is called for every request.
-
 #### That means that get_queryset is useful if you want to adjust the query dynamically. For example, you could return objects that belong to the current user:
 ```
 class IndexView(generic.ListView):
@@ -40,6 +38,8 @@ class IndexView(generic.ListView):
     queryset = Poll.active.filter(pub_date=date.today())
 ```
 
+### There are three aproaches for create a model object
+#### Here is the [documentation](https://pythonpedia.com/en/knowledge-base/41094013/when-to-use-serializer-s-create---and-modelviewset-s-create---perform-create--)
 
 ### Using mixins
 #### One of the big wins of using class-based views is that it allows us to easily compose reusable bits of behaviour.
