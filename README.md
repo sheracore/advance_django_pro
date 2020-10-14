@@ -38,7 +38,7 @@ class IndexView(generic.ListView):
     queryset = Poll.active.filter(pub_date=date.today())
 ```
 
-### There are three aproaches for create a model object
+### There are three approaches for create a model object
 #### Here is the [documentation](https://pythonpedia.com/en/knowledge-base/41094013/when-to-use-serializer-s-create---and-modelviewset-s-create---perform-create--)
 
 ### Using mixins
