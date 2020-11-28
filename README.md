@@ -44,7 +44,11 @@ services:
 ```
 docker-compose build
 ```
-#### So by this command line you can run your project
+#### So by this command line you shold first test all of your api by:
+```
+docker-compose run app sh -c "python manage.py test"
+```
+#### And by this command line you can run your project
 ```
 docker-compose run app sh -c "python manage.py runserver"
 ```
