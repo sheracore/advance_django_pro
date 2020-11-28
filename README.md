@@ -40,6 +40,15 @@ services:
       - POSTGRES_PASSWORD=supersecretpassword                                            
 ```
 
+#### By Docker compose you can run your program firts you should create your docker compose by
+```
+docker-compose build
+```
+#### So by this command line you can run your project
+```
+docker-compose run app sh -c "python manage.py runserver"
+```
+
 ### Defferent between queryset def get_queryset override method:
 
 #### In your example, overriding queryset and get_queryset have the same effect. I would slightly favour setting queryset because it's less verbose.
